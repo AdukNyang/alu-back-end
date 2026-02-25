@@ -17,7 +17,8 @@ if __name__ == "__main__":
         username = user.get("username")
         user_tasks = [{"username": username, "task": task.get("title"),
                        "completed": task.get("completed")}
-                      for task in todos if task.get("userId") == user.get("id")]
+                      for task in todos
+                      if task.get("userId") == user.get("id")]
         all_data[user_id] = user_tasks
 
     with open("todo_all_employees.json", "w") as jsonfile:
