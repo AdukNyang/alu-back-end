@@ -7,14 +7,15 @@ import sys
 
 if __name__ == "__main__":
     employee_id = sys.argv[1]
-    user_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
-    todos_url = f"https://jsonplaceholder.typicode.com/todos?userId={employee_id}"
-    
+    base_url = "https://jsonplaceholder.typicode.com"
+    user_url = f"{base_url}/users/{employee_id}"
+    todos_url = f"{base_url}/todos?userId={employee_id}"
+
     user = requests.get(user_url).json()
     todos = requests.get(todos_url).json()
-    
+
     tasks = [{"task": task.get("title"), "completed": task.get("completed"),
               "username": user.get("username")} for task in todos]
-    
+
     with open(f"{employee_id}.json", "w") as jsonfile:
         json.dump({employee_id: tasks}, jsonfile)
